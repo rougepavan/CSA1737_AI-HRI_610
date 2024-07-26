@@ -1,0 +1,43 @@
+% Facts: symptom(Name, Symptom).
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, headache).
+symptom(lisa, sore_throat).
+symptom(lisa, fever).
+symptom(lisa, runny_nose).
+symptom(eric, cough).
+symptom(eric, fever).
+symptom(eric, fatigue).
+
+% Facts: disease(Name, Disease).
+disease(john, flu).
+disease(lisa, cold).
+disease(eric, flu).
+
+% Rules for diagnosis based on symptoms
+diagnose(Name, Disease) :-
+    symptom(Name, fever),
+    symptom(Name, cough),
+    symptom(Name, headache),
+    disease(Name, Disease),
+    write(Name), write(' is diagnosed with '), write(Disease), nl.
+
+diagnose(Name, Disease) :-
+    symptom(Name, sore_throat),
+    symptom(Name, runny_nose),
+    symptom(Name, fever),
+    disease(Name, Disease),
+    write(Name), write(' is diagnosed with '), write(Disease), nl.
+
+diagnose(Name, Disease) :-
+    symptom(Name, cough),
+    symptom(Name, fever),
+    symptom(Name, fatigue),
+    disease(Name, Disease),
+    write(Name), write(' is diagnosed with '), write(Disease), nl.
+
+% Example queries:
+% Diagnose diseases based on symptoms
+% ?- diagnose(john, Disease).
+% ?- diagnose(lisa, Disease).
+% ?- diagnose(eric, Disease).

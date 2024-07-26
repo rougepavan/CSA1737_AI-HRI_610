@@ -1,0 +1,19 @@
+% move/4 predicate defines the main rule to solve the problem.
+% move(N, Source, Destination, Auxiliary) moves N disks from Source to Destination using Auxiliary as temporary storage.
+
+% Base case: Moving 0 disks doesn't require any moves.
+move(0, _, _, _) :- !.
+
+% Recursive case: 
+% Move N-1 disks from Source to Auxiliary using Destination as temporary storage.
+% Move the Nth disk from Source to Destination.
+% Move the N-1 disks from Auxiliary to Destination using Source as temporary storage.
+move(N, Source, Destination, Auxiliary) :-
+    N > 0,
+    M is N - 1,
+    move(M, Source, Auxiliary, Destination),
+    format('Move disk from ~w to ~w~n', [Source, Destination]),
+    move(M, Auxiliary, Destination, Source).
+
+% Example query to solve Towers of Hanoi with 3 disks.
+% ?- move(3, left, right, center).

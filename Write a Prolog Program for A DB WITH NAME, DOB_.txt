@@ -1,0 +1,35 @@
+% Define the database with facts.
+% Each fact stores a person's name and their date of birth.
+
+% dob(Name, DateOfBirth).
+dob('Alice', '1990-01-15').
+dob('Bob', '1985-05-23').
+dob('Charlie', '1992-12-01').
+dob('Diana', '1988-07-30').
+dob('Eve', '1995-03-10').
+
+% Rule to find a person's date of birth by their name.
+find_dob(Name, DateOfBirth) :-
+    dob(Name, DateOfBirth).
+
+% Rule to find a person's name by their date of birth.
+find_name(DateOfBirth, Name) :-
+    dob(Name, DateOfBirth).
+
+% Rule to list all entries in the database.
+list_all :-
+    dob(Name, DateOfBirth),
+    format('Name: ~w, Date of Birth: ~w~n', [Name, DateOfBirth]),
+    fail.
+list_all.
+
+% Example queries:
+
+% Find the date of birth for Alice
+% ?- find_dob('Alice', DateOfBirth).
+
+% Find the name associated with a specific date of birth
+% ?- find_name('1985-05-23', Name).
+
+% List all entries in the database
+% ?- list_all.

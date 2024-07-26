@@ -1,0 +1,44 @@
+% State representation: state(MonkeyPosition, BoxPosition, MonkeyOnBox, HasBanana).
+% MonkeyPosition and BoxPosition can be one of [at_door, at_window, at_middle].
+% MonkeyOnBox is a boolean indicating whether the monkey is on the box.
+% HasBanana is a boolean indicating whether the monkey has the banana.
+
+% Initial state
+initial_state(state(at_door, at_window, false, false)).
+
+% Goal state
+goal_state(state(_, _, _, true)).
+
+% Move the monkey from one place to another
+move(state(MP, BP, false, HB), move(MP, NewMP), state(NewMP, BP, false, HB)) :-
+    MP \= NewMP.
+
+% Push the box from one place to another
+move(state(MP, MP, false, HB), push_box(MP, NewBP), state(NewBP, NewBP, false, HB)) :-
+    MP \= NewBP.
+
+% Climb onto the box
+move(state(MP, BP, false, HB), climb, state(MP, BP, true, HB)) :-
+    MP = BP.
+
+% Climb off the box
+move(state(MP, BP, true, HB), climb_down, state(MP, BP, false, HB)).
+
+% Grab the banana
+move(state(at_middle, at_middle, true, false), grab, state(at_middle, at_middle, true, true)).
+
+% Plan a sequence of moves to reach the goal state
+plan(State, _, []) :- goal_state(State).
+plan(State, Visited, [Action | RestOfPlan]) :-
+    move(State, Action, NewState),
+    \+ member(NewState, Visited),
+    plan(NewState, [NewState | Visited], RestOfPlan).
+
+% Find a plan from the initial state
+find_plan :-
+    initial_state(InitialState),
+    plan(InitialState, [InitialState], Plan),
+    write('Plan: '), write(Plan), nl.
+
+% Example query
+% ?- find_plan.

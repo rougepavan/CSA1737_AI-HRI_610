@@ -1,0 +1,24 @@
+% Facts: disease_diet(Disease, Diet).
+disease_diet(diabetes, 'Low sugar, high fiber, whole grains, vegetables, lean proteins').
+disease_diet(hypertension, 'Low sodium, low fat, high potassium, fruits, vegetables, whole grains').
+disease_diet(heart_disease, 'Low saturated fat, high fiber, fruits, vegetables, lean proteins').
+disease_diet(obesity, 'Low calorie, high fiber, vegetables, fruits, lean proteins, whole grains').
+disease_diet(kidney_disease, 'Low sodium, low potassium, low phosphorus, controlled protein').
+disease_diet(anemia, 'High iron, high vitamin C, lean meats, leafy greens, beans, nuts').
+disease_diet(gout, 'Low purine, high vitamin C, fruits, vegetables, whole grains, dairy').
+
+% Rule to suggest a diet based on the disease.
+suggest_diet(Disease, Diet) :-
+    disease_diet(Disease, Diet),
+    format('For ~w, the recommended diet is: ~w~n', [Disease, Diet]).
+
+% Example queries:
+
+% Suggest a diet for diabetes.
+% ?- suggest_diet(diabetes, Diet).
+
+% Suggest a diet for hypertension.
+% ?- suggest_diet(hypertension, Diet).
+
+% Suggest a diet for an unknown disease.
+% ?- suggest_diet(unknown, Diet).

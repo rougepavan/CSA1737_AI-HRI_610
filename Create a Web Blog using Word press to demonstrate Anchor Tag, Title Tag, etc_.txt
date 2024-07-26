@@ -1,0 +1,16 @@
+<!-- Title Tag -->
+<h1>This is my Blog Post Title</h1>
+
+<!-- Anchor Tag -->
+<p>Visit <a href="https://example.com">Example Website</a> for more information.</p>
+
+<!-- Heading Tags -->
+<h2>Introduction</h2>
+<p>This is the introduction paragraph.</p>
+
+<h2>Main Content</h2>
+<p>This is the main content of the blog post.</p>
+
+<!-- Paragraph Tags -->
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>

@@ -1,0 +1,47 @@
+% Define the database with facts.
+% Each fact stores whether a particular bird can fly.
+
+% can_fly(Bird).
+can_fly(eagle).
+can_fly(sparrow).
+can_fly(swallow).
+can_fly(pigeon).
+can_fly(parrot).
+
+% Define the birds that cannot fly.
+% cannot_fly(Bird).
+cannot_fly(penguin).
+cannot_fly(ostrich).
+cannot_fly(kiwi).
+
+% Rule to determine if a bird can fly.
+bird_can_fly(Bird) :-
+    can_fly(Bird),
+    format('~w can fly.~n', [Bird]).
+
+% Rule to determine if a bird cannot fly.
+bird_cannot_fly(Bird) :-
+    cannot_fly(Bird),
+    format('~w cannot fly.~n', [Bird]).
+
+% Rule to handle unknown birds.
+bird_can_fly_or_not(Bird) :-
+    (can_fly(Bird) ->
+        bird_can_fly(BBird);
+    cannot_fly(Bird) ->
+        bird_cannot_fly(Bird);
+    format('Unknown bird: ~w.~n', [Bird])).
+
+% Example queries:
+
+% Check if an eagle can fly.
+% ?- bird_can_fly_or_not(eagle).
+
+% Check if a penguin can fly.
+% ?- bird_can_fly_or_not(penguin).
+
+% Check if a kiwi can fly.
+% ?- bird_can_fly_or_not(kiwi).
+
+% Check if an unknown bird can fly.
+% ?- bird_can_fly_or_not(dragon).

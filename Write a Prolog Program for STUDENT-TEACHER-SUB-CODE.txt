@@ -1,0 +1,42 @@
+% Define the database with facts.
+% Each fact stores a student, teacher, and subject code.
+
+% student_teacher_subject(Student, Teacher, SubjectCode).
+student_teacher_subject('Alice', 'Mr. Smith', 'CS101').
+student_teacher_subject('Bob', 'Ms. Johnson', 'MATH202').
+student_teacher_subject('Charlie', 'Mr. Smith', 'CS101').
+student_teacher_subject('Diana', 'Ms. Brown', 'ENG303').
+student_teacher_subject('Eve', 'Ms. Johnson', 'MATH202').
+
+% Rule to find the teacher for a given student and subject code.
+find_teacher(Student, SubjectCode, Teacher) :-
+    student_teacher_subject(Student, Teacher, SubjectCode).
+
+% Rule to find the subject code for a given student and teacher.
+find_subject(Student, Teacher, SubjectCode) :-
+    student_teacher_subject(Student, Teacher, SubjectCode).
+
+% Rule to find the students for a given teacher and subject code.
+find_students(Teacher, SubjectCode, Students) :-
+    findall(Student, student_teacher_subject(Student, Teacher, SubjectCode), Students).
+
+% Rule to list all entries in the database.
+list_all :-
+    student_teacher_subject(Student, Teacher, SubjectCode),
+    format('Student: ~w, Teacher: ~w, Subject Code: ~w~n', [Student, Teacher, SubjectCode]),
+    fail.
+list_all.
+
+% Example queries:
+
+% Find the teacher for Alice in subject CS101
+% ?- find_teacher('Alice', 'CS101', Teacher).
+
+% Find the subject code for Bob with teacher Ms. Johnson
+% ?- find_subject('Bob', 'Ms. Johnson', SubjectCode).
+
+% Find all students taught by Mr. Smith in subject CS101
+% ?- find_students('Mr. Smith', 'CS101', Students).
+
+% List all entries in the database
+% ?- list_all.

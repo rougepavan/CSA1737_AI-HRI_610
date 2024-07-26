@@ -1,0 +1,48 @@
+% Define the graph with edges and heuristic values
+edge(a, b, 2).
+edge(a, c, 1).
+edge(b, d, 5).
+edge(c, e, 3).
+edge(d, f, 2).
+edge(e, f, 4).
+
+% Heuristic function (h/2): heuristic(Node, HeuristicValue).
+h(a, 5).
+h(b, 4).
+h(c, 3).
+h(d, 2).
+h(e, 1).
+h(f, 0).
+
+% Best-First Search (BFS) algorithm
+best_first_search(Start, Goal, Path) :-
+    best_first_search_path([[Start]], Goal, Path).
+
+% Helper predicate to find the path using BFS
+best_first_search_path([[Goal|Path]|_], Goal, [Goal|Path]).
+best_first_search_path([Path|Paths], Goal, FinalPath) :-
+    extend(Path, NewPaths),
+    append(Paths, NewPaths, Paths1),
+    sort_paths(Paths1, SortedPaths),
+    best_first_search_path(SortedPaths, Goal, FinalPath).
+
+% Extend a path to neighbouring nodes
+extend([Node|Path], NewPaths) :-
+    findall([NewNode, Node|Path],
+            (edge(Node, NewNode, _); edge(NewNode, Node, _)),
+            NewPaths).
+
+% Sort paths based on heuristic values
+sort_paths(Paths, SortedPaths) :-
+    map_list_to_pairs(heuristic_value, Paths, KeyedPaths),
+    keysort(KeyedPaths, SortedKeyedPaths),
+    pairs_values(SortedKeyedPaths, SortedPaths).
+
+heuristic_value([Node|Path], Value) :-
+    h(Node, HValue),
+    length(Path, L),
+    Value is L + HValue.
+
+% Example query:
+% Find a path from node a to node f using Best-First Search
+% ?- best_first_search(a, f, Path).

@@ -1,0 +1,29 @@
+% Facts: fruit_color(Fruit, Color).
+fruit_color(apple, red).
+fruit_color(banana, yellow).
+fruit_color(grape, purple).
+fruit_color(orange, orange).
+fruit_color(pear, green).
+fruit_color(watermelon, green).
+fruit_color(strawberry, red).
+fruit_color(blueberry, blue).
+fruit_color(plum, purple).
+fruit_color(peach, yellow).
+
+% Predicate to find fruit based on color
+find_fruit(Color, Fruit) :-
+    fruit_color(Fruit, Color).
+
+% Predicate to find all fruits of a given color using backtracking
+find_all_fruits(Color) :-
+    fruit_color(Fruit, Color),
+    write(Fruit), nl,
+    fail. % Forces backtracking to find all solutions
+
+% Example queries:
+
+% Find a fruit that is red
+% ?- find_fruit(red, Fruit).
+
+% Find all fruits that are purple
+% ?- find_all_fruits(purple).

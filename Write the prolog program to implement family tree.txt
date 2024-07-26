@@ -1,0 +1,67 @@
+% Facts: parent(child, parent).
+parent(john, mary).
+parent(john, david).
+parent(lisa, mary).
+parent(lisa, david).
+parent(mary, susan).
+parent(mary, michael).
+parent(david, linda).
+parent(david, james).
+parent(susan, robert).
+parent(michael, tom).
+parent(michael, anna).
+
+% Rules:
+
+% X is a mother of Y if X is a parent of Y and X is female.
+mother(X, Y) :- parent(Y, X), female(X).
+
+% X is a father of Y if X is a parent of Y and X is male.
+father(X, Y) :- parent(Y, X), male(X).
+
+% X is a sibling of Y if they share at least one parent.
+sibling(X, Y) :- parent(X, Z), parent(Y, Z), X \= Y.
+
+% X is a grandparent of Y if X is a parent of Z and Z is a parent of Y.
+grandparent(X, Y) :- parent(Y, Z), parent(Z, X).
+
+% X is a grandchild of Y if Y is a grandparent of X.
+grandchild(X, Y) :- grandparent(Y, X).
+
+% X is an ancestor of Y if X is a parent of Y.
+ancestor(X, Y) :- parent(Y, X).
+ancestor(X, Y) :- parent(Y, Z), ancestor(X, Z).
+
+% X is a descendant of Y if Y is an ancestor of X.
+descendant(X, Y) :- ancestor(Y, X).
+
+% X is an uncle/aunt of Y if X is a sibling of Y's parent.
+uncle_or_aunt(X, Y) :- sibling(X, Z), parent(Y, Z).
+
+% Gender facts
+male(john).
+male(david).
+male(michael).
+male(james).
+male(robert).
+male(tom).
+
+female(mary).
+female(lisa).
+female(susan).
+female(linda).
+female(anna).
+
+% Example queries:
+
+% Find the mother of john.
+% ?- mother(Mother, john).
+
+% Find siblings of john.
+% ?- sibling(john, Sibling).
+
+% Find grandparents of linda.
+% ?- grandparent(Grandparent, linda).
+
+% Find descendants of mary.
+% ?- descendant(Descendant, mary).

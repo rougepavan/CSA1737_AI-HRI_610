@@ -1,0 +1,61 @@
+% Define the database with facts.
+% Each fact stores a planet's name, type, distance from the sun (in million km), and number of moons.
+
+% planet(Name, Type, DistanceFromSun, NumberOfMoons).
+planet('Mercury', terrestrial, 57.9, 0).
+planet('Venus', terrestrial, 108.2, 0).
+planet('Earth', terrestrial, 149.6, 1).
+planet('Mars', terrestrial, 227.9, 2).
+planet('Jupiter', gas_giant, 778.5, 79).
+planet('Saturn', gas_giant, 1434, 82).
+planet('Uranus', ice_giant, 2871, 27).
+planet('Neptune', ice_giant, 4495, 14).
+
+% Rule to find a planet by name.
+find_planet(Name, Type, DistanceFromSun, NumberOfMoons) :-
+    planet(Name, Type, DistanceFromSun, NumberOfMoons).
+
+% Rule to list all terrestrial planets.
+list_terrestrial_planets :-
+    planet(Name, terrestrial, DistanceFromSun, NumberOfMoons),
+    format('Name: ~w, Distance from Sun: ~2f million km, Number of Moons: ~d~n', [Name, DistanceFromSun, NumberOfMoons]),
+    fail.
+list_terrestrial_planets.
+
+% Rule to list all gas giants.
+list_gas_giants :-
+    planet(Name, gas_giant, DistanceFromSun, NumberOfMoons),
+    format('Name: ~w, Distance from Sun: ~2f million km, Number of Moons: ~d~n', [Name, DistanceFromSun, NumberOfMoons]),
+    fail.
+list_gas_giants.
+
+% Rule to list all ice giants.
+list_ice_giants :-
+    planet(Name, ice_giant, DistanceFromSun, NumberOfMoons),
+    format('Name: ~w, Distance from Sun: ~2f million km, Number of Moons: ~d~n', [Name, DistanceFromSun, NumberOfMoons]),
+    fail.
+list_ice_giants.
+
+% Rule to list all planets.
+list_all :-
+    planet(Name, Type, DistanceFromSun, NumberOfMoons),
+    format('Name: ~w, Type: ~w, Distance from Sun: ~2f million km, Number of Moons: ~d~n', [Name, Type, DistanceFromSun, NumberOfMoons]),
+    fail.
+list_all.
+
+% Example queries:
+
+% Find details about Earth
+% ?- find_planet('Earth', Type, DistanceFromSun, NumberOfMoons).
+
+% List all terrestrial planets
+% ?- list_terrestrial_planets.
+
+% List all gas giants
+% ?- list_gas_giants.
+
+% List all ice giants
+% ?- list_ice_giants.
+
+% List all planets
+% ?- list_all.
